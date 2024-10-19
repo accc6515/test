@@ -1,1 +1,113 @@
-<h2>Hello,world</h2>
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>DeepFake Detect - Fractal</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../static/assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="../static/assets/css/noscript.css" />
+    </noscript>
+    <style>
+        /* 隐藏文件输入框 */
+        input[type="file"] {
+            display: none;
+        }
+
+        /* 自定义上传按钮样式 */
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+
+        /* 文件名显示样式 */
+        .file-name {
+            margin-left: 10px;
+            font-style: italic;
+        }
+
+        /* 错误信息样式 */
+        .error-message {
+            color: rgb(255, 255, 255);
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="content" , style="border: 2px solid rgb(255, 255, 255); padding: 20px;">
+            <h1><a href="#">DeepFake Detect</a></h1>
+            <p>Upload an image to test for possible deepfakes</p>
+        </div>
+        <div class="inner alt" , style="border: 2px solid rgb(255, 255, 255); padding: 20px;">
+            <header class="major">
+                <h2>Upload pictures for testing</h2>
+            </header>
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data" class="form">
+                <div class="field half">
+                    <!-- 自定义上传文件按钮 -->
+                    <label for="file" class="custom-file-upload">
+                        Select a photo
+                    </label>
+                    <input type="file" name="file" id="file" class="form-control-file">
+                    <span id="file-name" class="file-name">No file selected</span>
+                </div>
+                <ul class="actions special">
+                    <li><button type="submit" class="button primary icon solid fa-upload">Upload</button></li>
+                </ul>
+                <!-- 错误提示信息 -->
+                <p id="error-message" class="error-message" style="display: none;">No file selected. Please choose a
+                    file.</p>
+            </form>
+        </div>
+    </header>
+
+    <script src="../static/assets/js/jquery.min.js"></script>
+    <script src="../static/assets/js/jquery.scrolly.min.js"></script>
+    <script src="../static/assets/js/browser.min.js"></script>
+    <script src="../static/assets/js/breakpoints.min.js"></script>
+    <script src="../static/assets/js/util.js"></script>
+    <script src="../static/assets/js/main.js"></script>
+
+    <script>
+        // 获取文件输入框、文件名显示的元素、错误信息提示元素
+        const fileInput = document.getElementById('file');
+        const fileNameDisplay = document.getElementById('file-name');
+        const errorMessage = document.getElementById('error-message');
+        const uploadForm = document.getElementById('uploadForm');
+
+        // 监听文件选择事件
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                // 显示选中的文件名并隐藏错误信息
+                fileNameDisplay.textContent = fileInput.files[0].name;
+                errorMessage.style.display = 'none';
+            } else {
+                fileNameDisplay.textContent = 'No file selected';
+            }
+        });
+
+        // 监听表单提交事件
+        uploadForm.addEventListener('submit', function (event) {
+            // 检查是否选择了文件
+            if (fileInput.files.length === 0) {
+                // 阻止表单提交并显示错误信息
+                event.preventDefault();
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
